@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            "use strict";
+            alert("Hello"); //이때 hello라고 출력되는 작은 창은 '모달 창'이라고 한다. modal이란 페이지 너머지 부분과 상호작용이 불가능하다는 의미가있음.
+            
+            //result = prompt(title, [default]); title:사용자에게 보여줄 문자열 [default]:입력필드 초깃값 
+
+            let age = prompt('나이를 입력해주세요.', 100); //100이라는 숫자가 기본으로 입력되어있는 나이를 입력해주세요 라는 문구가 적힌 모달창이 나옴
+            alert(`당신의 나이는 ${age}살 입니다.`);    //입력결과 이 모달창을 띄움
+            //IE에서는 let test = prompt("Test");처럼 default값이 없을경우 undefined가 입력필드에 명시되어있음. 
+            //깔끔해보이기 위해서는 let test = prompt("Test", '');처럼 공란의 default값이라도 남겨주는게 좋음.
+
+            let isBoss = confirm("당신이 주인인가요?"); // 
+            alert( isBoss ); // 확인 버튼을 눌렀다면 true가 출력, 아니오를 누르면 false가 출력됨.
+            //모달창은 브라우져마다 다르며, 수정할 수 없음.
+
+            let whatYourName = prompt("키미노 나마에와?", '')
+            alert(`당신의 이름은 ${whatYourName}입니다.`)
+
+
+        </script>
+    </body>
+</html>
