@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            "use strict";
+            //switch문은 복수의 if문을 간결하게 할때 사용. 가독성 향상에도 도움이 된다.
+            let a = 2 + 2;
+            switch (a) { 
+                case 3:     //case 뒤의 3이라는 값과 a를 비교했을때 true면 여기 case에 해당하는 문장을 수행, 아니면 밑 case로 이동.
+                    alert( '비교하려는 값보다 작습니다.' );
+                    break;  
+                case 4:     //case내의 break문장을 만나지않는다면 계속해서 switch문이 끝날때까지 아래로 검사를 진행.
+                    alert( '비교하려는 값과 일치합니다.' );
+                    break;  
+                case 5/*비교하는 값인 5는 문자형인지, 숫자형인지 그 형태도 가리기때문에 이를 잘 구분해야한다. '5'라면 절대 실행되지 않는다.*/:
+                    alert( '비교하려는 값보다 큽니다.' );
+                    break;
+                default:     //모든case에서 True가 되지않았다면, 여기서 결과값을출력하고 끝남. 또한 default문장은 필수요소가 아니기에 없을수도있음.
+                    alert( "어떤 값인지 파악이 되지 않습니다." );
+            }
+            //위문장에서 각 case에 break가 없다면, 4,5,default문장을 모두 수행한다. 4부터는 모두가 참이라고 생각하고 수행한다고 생각.
+            //switch문과 case문은 모든형태의 표현식이 다 가능함.
+
+            /*case문은 여러개를 묶을수도있는데,
+            case 3: // (*) 두 case3,5문장을 묶음
+            case 5:
+                alert('계산이 틀립니다!');
+                alert("수학 수업을 다시 들어보는걸 권유 드립니다.");
+                break;
+            ->이경우에는 3의값이 참이된다면 case5의 break를 만날때까지 모든 문장을 수행함.
+            */
+            
+            //Q1
+            let browser;
+            if (browser=='Edge') {              //엄밀하게 switch문과 동일하게 쓰이려면 === 을 사용해서 데이터 형태까지 판단해야하지만, 이 문제는 문자열만 사용하므로 넘어간다.
+                alert("Edge를 사용하고 계십니다.");
+            } else if (browser=='Chrome'
+                ||browser=="Firefox"
+                ||browser=="Safari"
+                ||browser=="Opera") {       //가독성을위해서 이렇게 세로로 쓰는버릇을!
+                alert("서비스를 지원하는 브라우저입니다.");
+            } else {
+                alert('현재 페이지가 잘보이긴해요??')
+            }
+            //Q2
+            let a = +prompt('a?','');
+            switch(a) {
+                case 0:
+                    alert(0);
+                    break;
+                case 1:
+                    alert(1);
+                    break;
+                case 2:
+                case 3:
+                    alert('2,3');
+                    break;      //->여기처럼 맨마지막이라도 break를 넣어주는 습관을 들이자. case가 추가될경우 발생할 오류를 방지할수있다!
+            }
+
+        </script>
+    </body>
+</html>
