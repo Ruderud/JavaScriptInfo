@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            "use strict";
+            //함수와 연산자에 전달되는 값은 대체로 적절하게 변환되며, 이를 형 변환이라고 함.
+            let value = true;
+            alert(typeof value); //boolean출력
+            value = String(value); //boolean 형태를 문자형(string)으로 변환
+            alert(typeof value); //string 출력
+
+            alert("6"/"3");//이렇게 입력해도 알아서 int으로 입력, 결과값으로 2를 출력한다.
+            let str="123";
+            alert(typeof str); // string으로 출력 "123"이라는 문자!
+            let num=Number(str); // str의 "123"이라는 문자를 num이라는 객체에 숫자형으로써 입력
+            alert(typeof num); //number 출력
+            
+            //다만 숫자+문자의 혼합형을 num으로써 입력하려고하면 NaN가 출력
+            let age = Number("내 나이는 3살");
+            alert(age); // NaN 출력
+
+            alert( Number("   123   ") ); // 123 문자형으로써 가지는 공란을 모두 제거함
+            alert( Number("123z") );      // NaN ("z"를 숫자로 변환하는 데 실패함)
+            alert( Number(true) );        // 1
+            alert( Number(false) );       // 0
+            alert( Number(undefined ));   // NaN                        특이케이스! (0이아님!)
+            alert( Number(null) );        // 0 
+
+            //boolean값 변환은 숫자 0, 빈 문자열, null, undefined, NaN같이 비어있는거같으면 다 False, 나머지는 True를 반환
+            alert( Boolean(1) ); // 숫자 1(true)
+            alert( Boolean(0) ); // 숫자 0(false)
+
+            alert( Boolean("hello") ); // 문자열(true)
+            alert( Boolean("") ); // 빈 문자열(false)
+            
+            alert( Boolean("0")); // True. 숫자 0이아닌, 문자열로써 "0"은 0이라는 문자열 값을 가지는 것이므로 True를 반환한다.  특이 케이스!
+        </script>
+    </body>
+</html>
