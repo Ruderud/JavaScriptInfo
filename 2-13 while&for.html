@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            'use strict';
+            // js에서 while문은 while (조건내용) {수행내용} 으로 구성됨. 짧을경우 while (i) alert(i--); 같이 짧게도 가능.
+            let i=0;
+            while (i<3) {
+                alert(i);
+                i++;    // ++ = +=1과 같음!
+            }
+
+            // do while문 -> 시행을 먼저 시키고 조건을 따지기때문에, 본문을 최소한 한번이라도 실행시키고자 할 때 적합함.
+            /*
+            do {
+                //반복문 본문
+            } while (조건내용);
+            */
+            
+            let j=0;
+            do {
+                alert(j);
+                j++; 
+            } while (j<3);
+            
+            //for문은 for (시작문, 조건내용, step;반복대상인 body가 수행되고 실행) {body}
+            
+            for (let i=0; i<3; i++) {  //여기서 i는 인라인 변수선언되었다. 인라인 변수선언은 def처럼 해당 반복문 내에서만 접근할 수 있다.
+                alert(i);
+            }
+            // 위의 내용에서 시작, 조건내용, step 각각 생략가능함. 대신 for 조건문내에 세미콜론이 2개가 들어가도록해야 에러가 나지 않음.
+                //ex) for (; i<3; ) { alert(i++); } -> 이런식으로도 가능. 0,1,2가 출력된다.
+
+            //break를 쓰면 원할때 반복문 탈출도 가능.
+            let sum = 0;
+
+            while (true) {
+
+                let value = +prompt("숫자를 입력하세요.", '');
+
+                if (!value) break; // (*) -> 여기서는 입력된 값이 없을때, cancel을 눌렀을때 발생함 -> 불린값 false를 !로 true화 하여 수행.
+
+                sum += value;
+
+            }
+            alert( '합계: ' + sum );
+
+            //continue는 해당 사이클을 종료시키고, 다음사이클로 진입하게함.
+            for (let i = 0; i < 10; i++) {
+                if (i % 2) {        //1,3,5,7,9의 홀수 출력문인데 이를 'if (i%2==0) continue; alert(i);'로 바꾸면 짧게 쓸수있다.
+                alert( i );
+                }
+            }
+    //표현식이 아닌 문법구조는 삼항연산자 ?에 사용할 수 없음. 특히 break나 continue는 이용하면 안된다.
+            
+            //여러개의 중첩 반복문을 한번에 빠져나와야할때는 레이블(lable)을 사용한다.
+            outer: for (let i = 0; i < 3; i++) { //이렇게 반복문 맨앞에 '지정이름:'을 붙여서 쓰면 (*)항을 통해서 전체 빠져나오기가 가능
+                                                    // outer: \n for (for문 조건내용...)이런식으로 줄바꾸고 쓸수도있음.
+                for (let j = 0; j < 3; j++) {
+
+                    let input = prompt(`(${i},${j})의 값`, '');
+
+                    // 사용자가 아무것도 입력하지 않거나 Cancel 버튼을 누르면 두 반복문 모두를 빠져나옵니다.
+                    if (!input) break outer; // (*)
+
+                // 입력받은 값을 가지고 무언가를 함
+                }
+            }
+            alert('완료!');
+            //다만, label은 방법은 원하는 반복문으로 점프할 수 있게 해주는것은 아님. 
+            /*
+            name1: 반복문 {
+                ....break name2;        -> 이런식으로 중간에 다른반복문으로 점프는 불가. break나 continue할 문장하에서만 쓸수있음.
+            }
+            name2: 반복문 {
+                반복내용
+            }
+            */
+
+            //Q
+            let i = 0;
+            while (++i < 5) alert( i ); // 1,2,3,4를 출력. ++i는 먼저 증가시키고 증가된 새로운값을 반환한다. 
+                                        //(4가 들어갔을때 5로증가되고 이는 i<5를 만족하지 않기때문,)
+            let i = 0;
+            while (i++ < 5) alert( i ); // 1,2,3,4,5를 출력함.  ++i는 이전i의 조건을 먼저 확인하고 증가된 새로운 값을 반환한다.
+
+            for (let i = 0; i < 5; ++i) alert( i );
+            for (let i = 0; i < 5; i++) alert( i ); //반면 for문은 조건을 확인하고 body를 먼저 수행하고 ++i이던 i++던하기때문에 차아없이 둘다 0,1,2,3,4를 출력
+
+            for (let i =2; i<=10; i++) {
+                if (i%2==1) continue; // if (i % 2 == 0) {alert( i );}과 같음
+                alert(i);
+            }
+
+            for (let i = 0; i < 3; i++) {
+                alert( `number ${i}!` );
+            } //while문으로 바꾸기
+            let i = -1
+            while (++i<3) alert(`number ${i}!`);
+            //해설
+            let i = 0;
+            while (i < 3) {
+                alert( `number ${i}!` );
+                i++;
+            }
+
+
+            let inputNum=0;
+            while (inputNum<=100) {
+                inputNum=prompt('100보다 큰 숫자를 입력하세요','');
+                if (inputNum==null||inputNum=='') break;
+            }
+            //해답
+            let num;
+            do {
+                num = prompt('100보다 큰 숫자를 입력하세요','');
+            } while (num<=100 && num); //cancel 또는 아무것도 입력하지 않은경우, num<=100 비교시 null, ''이 0으로써 첫조건을 true로 만족
+                                       //따라서 &&두번째 조건에 num을 넣어서 0, null일때 false임을 통해 멈추게 할 수 있음.
+
+            let n=10;
+
+            nextprime: //이중포문사용. i변수에 대해서 2,3,4,5...순(j)으로 나눠서 0이 아니면 출력, 0이되면 i++를 통해서 다름 수로 넘어감.
+            for (let i=2;i<n;i++){
+
+                for(let j=2;j<i;j++){
+
+                    if (i%j==0) continue nextprime;
+                }
+
+                alert(i);
+            }
+        </script>
+    </body>
+</html>

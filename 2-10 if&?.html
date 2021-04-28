@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            "use strict";
+
+            let year = prompt("오늘의 연도는?",'');
+            if (year==2021) {
+                alert ('맞워요');
+                alert ('넘모 똑똑한것')     // 이렇게 중괄호를 쓰면 복수의 문장을 {}로 감싸야한다. 1개의 문장이라도 해주는것이 가독성으로는 좋다!
+            } else if (year >2021) {    // 여기선 else if가 파이썬에서의 elif역할을 함.
+                alert ("미래에서 오심?");
+            } else {                    // else는 if 조건이 거짓일때 실행함. 또한 이는 선택사항임.
+                alert ("과거에서 오심?");
+            }
+
+            //if 는 괄호안의 표현결과값에 따라 문장을 수행하는데, "0, ''(빈문자열), null, undefined, NaN "들은 모두 false임을 상기할것!
+            // 위의 경우 let cond = (year == 2021); if (cond);의 방법으로 if에 불린값을 전달하는방법도 존재한다.
+
+            
+            let accessAllowed;
+            let age = prompt("나이를 입력해주세요",'');
+
+            /*
+            if (age>18) {
+                accessAllowed = true;
+            } else {
+                accessAllowed = false;
+            }
+            alert (accessAllowed);
+            */
+            //위의 문장을 ? 문장을 쓰면 더 간결하게 쓸 수 있음.
+            // let result = condition ? value 1 : value2; -> condition의 값이 참이라면 result에 value1, 거짓이라면 false를 반환함.
+            accessAllowed = (age > 18) ? true : false;    //물론 age > 18이라는 비교연산에서 T/F를반환하기때문에 엄밀히는 ?문을 쓰지않아도된다.
+                            // -> 조건문을 괄호 안쳐도 작동은하지만, 가독성을 위해서 치는게 좋음
+            alert(accessAllowed)
+
+            let company = prompt('자바스크립트는 어떤 회사가 만들었을까요?', '');
+
+            (company == 'Netscape') ?
+                alert('정답입니다!') : alert('오답입니다!'); //이런방법으로 if문을 대체하는 방법으로 ?을 쓰는것은 지양한다.
+            
+            //Q2
+            let jsName = prompt("자바스크립트의 '공식' 이름은 무엇일까요?",'');
+            if (jsName == "ECMAScript"){
+                alert("정답입니다!");
+            } else {
+                alert("모르셨나요? 정답은 ECMAScript입니당~");
+            }
+            //Q3
+            let Q3_solution = prompt("숫자를 입력합시다",'');
+            if (Q3_solution > 0) {
+                alert(1);
+            } else if (Q3_solution <0) {
+                alert(-1);
+            } else {
+                alert(0);
+            }
+            //Q4
+            let result = (a+b<4) ? '미만' : '이상' ;
+            //Q5
+            let message = (login == '직원') ? '안녕하세요' : '';
+                message = (login == '임원') ? '환영합니다' : '';
+                message = (login == '') ? '로그인이필요합니다' : '';  //비효율적! 굳이 앞에 메세지에 대해 여러번 쓸필요없음
+            
+            let message = (login == '직원') ? '안녕하세요' :
+                (login == '임원') ? '환영합니다' : 
+                (login == '') ? '로그인이필요합니다' : '' ;         //false속에서 또한번 ?문장으로 걸러낼 수 있음!
+
+
+        </script>
+    </body>
+</html>

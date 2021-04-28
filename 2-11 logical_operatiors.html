@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            "use strict";
+            
+            // 논리연산자 ||는 or의 역할을 한다. 진행중 하나라도 true라면 true를 반환, 모두 false여야 false를 반환
+            alert( true || true );   // true(앞)
+            alert( false || true );  // true(뒤)
+            alert( true || false );  // true(앞)
+            alert( false || false ); // false(뒤)
+            alert( 1 || 0 ); // true -> 숫자로 입력되어도 이는 자동으로 불린형으로 변환되어 연산결과를 반환함.
+
+            let hour = 12;
+            let isWeekend = true;
+            if (hour < 10 || hour > 18 || isWeekend) {
+            alert( '영업시간이 아닙니다.' ); // 주말이기 때문에 세조건중 하나가 true가 되어 영업시간이 아니라고 알려줌.
+            }
+
+            // js에서 ||연산은 result = value1 || value2 || value3; 일때 특이한 연산을함. ...(1)
+            //                      -> 왼쪽에서         -> 오른쪽으로 연산을 순차적으로한다. 
+            //중간에 true가 반환되면, 불린값으로 변환되기 전의 value값을 반환함! (모두 패스시 가장 마지막의 원래값을 반환)
+
+
+            // 논리연산자 &&는 and의 역할을 한다. 둘 다 모두 true이어야 true를 반환하고, 이외는 모두 false반환.
+            alert( true && true );   // true(뒤)
+            alert( false && true );  // false(앞)
+            alert( true && false );  // false(뒤)
+            alert( false && false ); // false(앞)
+
+            //result = value1 && value2 && value3; 일때 연산순서는 좌->우이며
+            //중간에 변환값이 false가 나오게되면 평가를 멈추고 해당 피연산자의 변환전 원래값을 반환함. (모두 패스시 가장 마지막의 원래값을 반환)
+            
+    //caution! &&의 우선순위가 ||보다 높음! -> 'a && b || c && d'는  '(a && b) || (c && d)'와 같음
+            
+            //논리연산자 !는 인수를 '단 하나'만 받고, 불린형으로 변환하여 그 반대값을 반환시킴
+            alert( !true ); // false
+            alert( !0 ); // true
+
+            alert( !!"non-empty string" ); // true
+            alert( !!null ); // false ->이렇게 !를 두번쓰면 불린형으로 바꿀수도있음. Boolean()과 동일한 효과
+    //우선순위 ! > && > ||
+            
+            //Q
+            alert( alert(1) || 2 || alert(3) ); // 1,2가 순서대로 출력된다. alert(1)자체는 값을 반환하지않기에 undefined가 반환된다.
+            //이는 false에 해당하므로 첫번째는 평가될때 1을 출력하지만 || 연산이 멈추지는 않음 -> 다음 2에서 논리연산이 정지하고 2가 출력.
+
+            alert( null || 2 && 3 || 4 ); // 3이 출력 된다. 먼저 2 && 3에 의해 전부 true이므로 마지막값인 3이 반환되고, ||연산에 의해 3출력
+
+            let age1 = 15;
+            if (age1>=14 && age1<=90) {
+                alert('14세이상 90세 미만에 속함.');
+            }
+
+            let age2 =12;
+            if (age2<14 || age2>90);    //나이가 14살 미만인가? -> 거짓일시 나이가 90살 이상인가? ->거짓시 if문에 거짓을 적용.
+            if (!(age2>=14 && age<=90)) ; // 나이가 14살 이상인가? -> 참일시 나이가 90살 미만인가? ->참일시 !에의해 거짓이 되어 if문에 거짓을 적용
+                                          // 나이가 14살 이상인가? -> 거짓일시 정지-> !에의해 거짓이 참이 되며, if문에 참을 반환 -> 결론적으로 12살을 집어넣을때 if문에 참이 입력되므로 결과는 같다!
+            
+            let id = prompt('누구세요?','');
+            if (id == 'Admin') {
+                let passWord = prompt('비밀번호를 입력하세요','');
+                if (passWord =='TheMaster') {
+                    alert('환영합니다!');
+                } else if (passWord==null||passWord==''||alert('인증에 실패하였습니다')) {
+                    alert('취소되었습니다');
+                }
+            } else if (id==''||id==null){               //else로 하지않고 else if 로 아이디 미입력을 구분하면 이중으로 뜨지않는다.
+                alert('취소되었습니다.')
+            } else {
+                alert('인증되지 않은 사용자 입니다')
+            }
+
+
+            
+            //해답
+            let userName = prompt("사용자 이름을 입력해주세요.", '');
+
+            if (userName == 'Admin') {
+
+                let pass = prompt('비밀번호:', '');
+
+                if (pass == 'TheMaster') {
+                    alert( '환영합니다!' );
+                } else if (pass == '' || pass == null) {
+                    alert( '취소되었습니다.' );
+                } else {
+                    alert( '인증에 실패하였습니다.' );          //해답은 인증에 실패했다는말을 else if에 넣지않고 분리했음.
+                }
+
+            } else if (userName == '' || userName == null) {
+            alert( '취소되었습니다.' );
+            } else {
+            alert( "인증되지 않은 사용자입니다." );
+            }
+            
+            
+
+
+
+        </script>
+    </body>
+</html>
