@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            'use strict';
+            //함수 선언
+
+            let name = "john"; //이처럼 함수외부에 선언된 변수는 전역변수(global variable)이라 한다. 함수내에서 새로 선언하지않으면 어디서든 호출가능
+                               //그렇기에 되도록 전역변수는 쓰지말고 필요한 함수내에서 지역변수로만 쓰는것이좋다. 글로벌하게쓰면 다른함수로인해 값이 막 바뀔수도있음.
+            let name2 = "김";
+            let name3 = '안바뀌지롱'
+            function showMessage/*함수이름*/(/*함수조건*/) { //함수본문시작
+                let message="안녕하세요" +name; //지역변수 -> 함수내에서만 사용되는 변수임. 함수밖에서는 사용할 수 없음.
+                alert(message);              //안녕하세요john  (name -> 외부변수를 가져옴)
+                name2 = "밥";                 //외부변수의 수정도 가능
+                let name3 = "변환을 시도!"      //함수내부에서만 쓰일 name3를 선언(=지역변수)
+            }
+            alert(name2);  //함수를 아직 호출하지않아, 김이 출력
+            showMessage(); //함수호출
+            alert(name2);  //함수 호출에 의해 name2의 변수가 김->밥으로 수정되었음.
+            alert(name3);  //함수 외부의 변수와 내부의 변수이름이 같은경우, 외부변수값에 손대지 않음!
+
+            function showMessage2(from,text ='입력되지않음') { // =디폴트값 -> 입력되지않은값은 디폴트값으로 입력해서 출력함   
+
+                if (from === undefined){    //from에도 값이 입력되지않았을때, 아래행의값을 할당해서 본문을 수행.
+                    from = "나도입력안댐"       //이 if문은 text = text || "나도입력안댐"; 과 동일한 효과를 발휘함.
+                }
+                alert(from + ':' + text);
+            }
+            showMessage2('Ann','hello') // Ann:hello 출력
+            showMessage2('John') //John:입력되지않음 출력 
+            showMessage2() 
+
+            function showCount(count) {
+                alert(count ?? "unknown"); // count에 값이 입력되지않으면 (=null) 처음 count에서 false값으로 처리, 다음값으로 넘어가며 
+            }                              // 'unknown'이라는 값이 존재=True -> 엘럿 수행!
+            showCount(0); // 0
+            showCount(null); // unknown
+            showCount(); // unknown
+
+            function checkAge(age) {
+                if (age >= 18) {
+                    return true;
+                } else {
+                    return confirm('보호자의 동의를 받으셨나요?');      //17이하일떄 확인/취소 여부를 묻는게 나옴. 이떄 취소시 false값이 나오므로 접속차단 문구가 나옴.
+                }
+            }
+
+            let age = prompt('나이를 알려주세요', 18);
+
+            if ( checkAge(age) ) {
+            alert( '접속 허용' );
+            } else {
+            alert( '접속 차단' );
+            }
+
+            function showMovie(age) {
+                if ( !checkAge(age) ) { // 접속차단대상인경우 chackage에서 false값을 받았으므로 !으로 인해 True -> showmovie가 return하여 영화 상영문구가 출력되지 않음
+                    return;
+                }
+
+            alert( "영화 상영" ); // (*)
+            // ...
+            }
+            
+            // return문이 없는 함수는 undefined를 반환한다. 또한 return; 만 되어있어도 undefined를 반환한다. (즉, return; === return undefined; )
+            // return값이 길어진다해도 줄바꿈하면안된다. return;으로 인식되기때문. 줄바꿈을 써야한다면 ()를 사용하자.
+            // 프로젝트 할 팀마다 만든 규칙이 있겠지만, 대체로 함수는 동작하나만 담당하는것이 좋다. calcSum-> 덧셈 계산만 해야지, alert로 그 값을 보여준다던가 하면 좋지 못하다는 이야기임.
+
+            function showPrimes(n) {
+                nextPrime:
+                for (let i = 2; i < n; i++) {
+
+                    for (let j = 2; j < i; j++) {       //이중for문을 이용해서 순차적으로 2,3,4,씩 나누어 0이되면 다음수로 넘어가는 방법
+                    if (i % j == 0) continue nextPrime;
+                    }
+
+                alert( i ); // 소수
+                }
+            }
+            //위의 단일 함수식을 2개의 함수로 쪼개면 다음과 같다.   
+            function showPrimes2(n) {       //이렇게 이름만보고도 알수있는 함수를 자기설명적 함수라 한다.
+                
+                for (let i=2 ; i<n ; i++){
+                    if (!isPrime(i)) continue;      //소수가 아닐경우 반환된 false로 인해 continue가 실행되어 다음 숫자를 검증하러 간다
+                    alert(i);                       //소수일경우 true를 반환-> if문이 작동하지않고 해당숫자를 alert로 보여준다.
+                }
+            }
+            function isPrime(n) { 
+                for (let i=2 ; i<n ; i++){
+                    if (n%i==0) return false;       //소수여부를 판별함. 1과 자기자신사이의 수(2~n-1)로 나눠 0이된다면 false를 반환
+                }
+                return true;            //모두 해당되지않아 for문을 빠져나오면 true를 반환.
+            }
+
+
+            //Q2-1
+            function checkAge_Q2_1(age) {
+                return (age>18) ? true : confirm('보호자의 동의를 받으셨나요?'); // ?문장은 (판별내용) ? true일때 반환값 : false일때 반환값 이라는걸 상기!
+            }
+            //Q2-2
+            function checkAge_Q2_2(age) {
+                return (age>18 || confirm('보호자의 동의를 받으셨나요?')); // 18세미만일시 false -> 보호자 동의 아닐시 false -> ||는 모두false일시 마지막 값을 반환하기에 false반환
+            }
+
+            //Q3
+            function min(a,b) {
+                if (a>b) {
+                    return b;
+                } else {    //작거나 같은경우는 모두 a를 반환하게해도 똑같음.
+                    return a;
+                } 
+            }
+            //? 연산자를 쓴다면 return a>b ? b:a; 로 끝난다.
+            
+            //Q4
+            function pow(x,n) {
+                x=prompt('x값을 입력하세요','');
+                n=prompt('n값을 입력하세요. 1이상의 자연수이어야합니다',1);
+                return (n>=1) ? alert(x**n) : alert('n의 값은 1이상의 자연수를 입력하세요');
+            }
+            pow()
+
+            //해답
+            function pow(x, n) {
+                let result = x;
+
+                for (let i = 1; i < n; i++) {   //여기서는 n회 곱셈하도록 for문을 이용했음.
+                    result *= x;
+                }
+
+            return result;
+            }
+
+            let x = prompt("x?", '');
+            let n = prompt("n?", '');
+
+            if (n < 1) {
+            alert(`${n}은 양의 정수이어야 합니다.`);    //잘못입력한 값을 보여주면서 양의 정수를 입력하라고 보여줌.
+            } else {
+            alert( pow(x, n) );
+            }
+        </script>
+    </body>
+</html>
