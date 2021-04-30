@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            'use strict';
+            function sayHi() { //js에서 함수는 그 자체로 값이 된다. 그렇기때문에 다른변수에 복사해서 집어넣어 작동시킬수도있다.
+                alert("Hi!");
+            }
+            
+            let sayHi2 = function() {   //이렇게 변수를 선언하고, 그 선언한 변수에 함수를 할당하는 방법도있음.
+                alert("Ho!");
+            }; //여기서 ;가 붙은이유는 중괄호로 만든 코드블록이 아니라, let 선언문 자체의 끝을 의미하기때문.
+
+            alert(sayHi); //함수 sayHi에 대한 코드가 전부 출력된다. sayHi()가 아니기 때문!
+            // 다른언어는 함수이름만 써도 작동하는게 있지만, 적어도 JS에서는 괄호()가 무조건있어야 작동한다!
+            let copy_sayHi = sayHi;  //주의! sayHi()로 할당하지 않았다. 그렇게 할당하면 결과값만 복사된다!
+            copy_sayHi(); //Hi!
+            sayHi();//Hi!
+
+            function ask(question,yes,no) { // 질문을 무조건 물어보고, Y/N에 따른 답을 보여주기
+                if (confirm(question)) yes()    //confirm에서 true가 반환될경우 yes에 할당된 함수를 호출
+                else no();                      //그밖의 상황은 모두 no에 할당된 함수를 호출함
+            }
+            function showOK() {             //showOK/Cancel함수는 콜백(함수)라고 불린다.
+                alert("동의하셨습니다.");
+            }
+            function showCancel() {
+                alert("거부하셨습니다.");
+            }
+            ask('동의하십니까?',showOK,showCancel);
+
+            ask(            //위의 function showOK/Cancel을 선언하고 사용한것보다 간편해졌다.
+                "동의하십니까?",
+                function() {alert("동의!")},    //이처럼 이름없이 선언한 함수는 이름이 없기에 '익명함수'라고 불린다. 물론 해당함수에서만 적용되기에 밖에서는 호출할 수 없다.
+                function() {alert("거절!")}
+            )
+
+
+            //함수선언문(function으로 바로 선언)과 함수표현식(let 변수명 = function(...) )의 차이는 
+            //1)문법이 다르며, 2) 'js엔진이 언제 함수를 생성'하느냐가 다르고, 3)스코프(함수선언문->해당문장내에서만, 함수표현식->문장의 제약X)의 차이가 있음.
+            //함수표현식은 해당 변수가 선언될때(도달할때) 해당함수를 사용할수있음. 하지만 함수 선언문은 함수가 정의되기 이전에도 사용할 수 있다는것이 다르다
+
+            sayHi("John"); // Hello, John ->아래의 sayHi함수를 사용할 수 있음.
+
+            function sayHi(name) {
+            alert( `Hello, ${name}` );
+            }
+
+        //-----------
+
+            sayHi("John"); // error! -> sayHi함수가 선언되지 않아서 사용할 수 없음
+
+            let sayHi = function(name) {  // (*) 마술은 일어나지 않습니다.
+            alert( `Hello, ${name}` );
+            };
+
+
+            //함수표현식의 한계 (엄격모드에서 해당하는 이야기!)
+            let age = 16; // 16을 저장했다 가정합시다.
+
+            let welcome;                                                            //...(A) 이처럼 밖에서 변수를 먼저 선언한다면 밖에서도 쓸수있음.
+
+            if (age < 18) {
+                welcome();              // \   (실행)
+                                        //  |
+                function welcome() {    //  |
+                    alert("안녕!");      //  |  함수 선언문은 함수가 선언된 블록 내
+                }                       //  |  어디에서든 유효합니다
+                                        //  |
+            welcome();                  // /   (실행)
+
+            } else {
+
+                function welcome() {
+                    alert("안녕하세요!");
+                }
+            }
+
+            // 여기는 중괄호 밖이기 때문에
+            // 중괄호 안에서 선언한 함수 선언문은 호출할 수 없습니다.
+
+            welcome(); // Error: welcome is not defined -> 함수표현식의 한계! -> 이를 극복하기위해서는...(A)
+
+            //위와같은이유때문에 "함수선언문"을 쓰는것을 우선시하는것이 좋음. 접근의 제약이 없기때문! + 가독성의 향상!
+            //따라서 특수한 조건에만 함수표현식을 쓰는것이 좋음.....나중에 이러한 사례를 알게된다!
+
+        </script>
+    </body>
+</html>
