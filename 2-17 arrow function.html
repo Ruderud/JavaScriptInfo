@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            "use strict";
+            //화살표함수는 let func = (arg1, arg2, ...argN) => (expression) 꼴로 사용된다. 이는 인자 1,2...n 순서로 받아서 표현식을 수행한다.
+            //함수표현문에서의 **arg꼴이라고 생각하면된다.
+            let sum = (a,b) => a+b;
+            alert(sum(3,5)); //8 출력.
+            //인수가 하나밖에없을때는 괄호를 쓰지않아도되며, 인수가 아예없을때는 괄호를 비워두면되지만 생략은 불가능하다!
+            let age = prompt("나이를 알려주세요",18);
+            let welcome = (age<18) ?
+                () => alert("Hi"):
+                () => alert("Hello");   //이처럼 함수 본문이 한줄인경우에는 화살표함수를 만들어서 사용하는것이 편리함! return값을 따로 정할 필요가없기때문.
+            welcome();
+
+            let mult = (a,b) => {
+                let result = a*b;
+                return result;      //이처럼 한줄로 끝나지않을경우에는 중괄호로 묶어야하는데, 이땐 result값을 할당해서 반환하게해야한다.
+            };
+            alert ( mult(5,7)); //35 출력
+
+            //Q
+            
+            function question() {
+                return confirm("동의하십니까?");
+            }
+            let ask = question ?
+                () => alert("동의하셨습니다."):
+                () => alert("거절하셨습니다.");
+            ask();
+            
+            //해설
+            function ask(question, yes, no) {   //ask 함수를 함수선언문으로써 그대로 살려두고 밑에 ask에 대한 조건만 arrow함수로바꾸었음
+                if (confirm(question)) yes()
+                else no();
+            }
+
+            ask(
+                "동의하십니까?",
+                () => alert("동의하셨습니다."),
+                () => alert("취소 버튼을 누르셨습니다.")
+            );
+        </script>
+    </body>
+</html>
