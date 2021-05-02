@@ -8,7 +8,11 @@
 
 
 
-![image-20210502141554795](/Users/jeong-gyeonghun/Library/Application Support/typora-user-images/image-20210502141554795.png)
+![스크린샷 2021-05-02 오후 2.47.13](/Users/jeong-gyeonghun/Desktop/Coding/JavaScript/스크린샷 2021-05-02 오후 2.47.13.png)
+
+
+
+
 
 물론 무조건 저걸 다 따라야한다는 법은 없음.
 
