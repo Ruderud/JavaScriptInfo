@@ -21,22 +21,19 @@
             alert ( mult(5,7)); //35 출력
 
             //Q
-            
-            function question() {
-                return confirm("동의하십니까?");
-            }
+            let question = confirm("동의하십니까?") //함수표현식을 이용해서 순차적으로 question변수에 true/false값을 할당하게했음.
+                                                 //자유로운 표현방법은 아니기에 함수선언문을 쓰는게 더좋음
             let ask = question ?
                 () => alert("동의하셨습니다."):
                 () => alert("거절하셨습니다.");
             ask();
-            
             //해설
-            function ask(question, yes, no) {   //ask 함수를 함수선언문으로써 그대로 살려두고 밑에 ask에 대한 조건만 arrow함수로바꾸었음
+            function ask2(question, yes, no) {   //ask 함수를 함수선언문으로써 그대로 살려두고 밑에 ask에 대한 조건만 arrow함수로바꾸었음
                 if (confirm(question)) yes()
                 else no();
             }
 
-            ask(
+            ask2(
                 "동의하십니까?",
                 () => alert("동의하셨습니다."),
                 () => alert("취소 버튼을 누르셨습니다.")
