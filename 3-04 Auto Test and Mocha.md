@@ -1,3 +1,40 @@
+테스트 자동화
+
+
+
+함수를 하나 만들어서 이를 테스트 해볼때,
+
+Case 1에 대해서는 통과했지만, case2 에서 실패할경우, 이를 고치고 case2만 트라이한다면 이는 잘못된 테스트이다.
+
+Case 1이 여전히 잘되는지 보장이 안되기 때문.
+
+그렇기에 다양한 조건에서 테스트 해보는것이 중요하다.
+
+
+
+
+
+BDD방법론(Behavior Driven Development)
+
+BDD는 Test + Documentation + Example을 모아놓은 개념이다.
+
+
+
+```js
+describe("pow", function() {		//구현하고자 하는 기능에 대한 설명
+
+  it("주어진 숫자의 n 제곱", function() {	//use case 설명
+    assert.equal(pow(2, 3), 8);			 //해당함수를 수행해보고, 기대한 결과가 나오는지 확인
+  });
+
+});
+```
+
+
+
+이를 실제로 사용하면 다음과 같다
+
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,3 +131,34 @@
 </body>
 
 </html>
+```
+
+
+
+또한 describe에 전제테스트의 시작/종료, 각 단일 셈플테스트에대한 시작/종료 함수도 지정할 수 있다.
+
+```js
+describe("test", function() {
+
+  before(() => alert("테스트를 시작합니다 - 테스트가 시작되기 전"));
+  after(() => alert("테스트를 종료합니다 - 테스트가 종료된 후"));
+
+  beforeEach(() => alert("단일 테스트를 시작합니다 - 각 테스트 시작 전"));
+  afterEach(() => alert("단일 테스트를 종료합니다 - 각 테스트 종료 후"));
+
+  it('test 1', () => alert(1));
+  it('test 2', () => alert(2));
+
+});
+/*
+테스트를 시작합니다 - 테스트가 시작되기 전          (before)
+단일 테스트를 시작합니다 - 각 테스트 시작 전         (beforeEach)
+1
+단일 테스트를 종료합니다 - 각 테스트 종료 후         (afterEach)
+단일 테스트를 시작합니다 - 각 테스트 시작 전         (beforeEach)
+2
+단일 테스트를 종료합니다 - 각 테스트 종료 후         (afterEach)
+테스트를 종료합니다 - 테스트가 종료된 후            (after)
+*/
+```
+
